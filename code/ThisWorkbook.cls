@@ -7,20 +7,24 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
+' Author        Anastasiou Alex
+' Website       https://github.com/alexofrhodes
+
+
 Option Explicit
 Public cControl As CommandBarButton
 
 Private Sub Workbook_AddinInstall()
     Call AddCommandbar
-    'if MyDocuments\MemoryKnotes doesn't exist create it
-    Call PathCreate("MemoryKnotes")
+    'if MyDocuments\MemoryKnots doesn't exist create it
+    Call PathCreate("MemoryKnots")
 End Sub
 
 Private Sub Workbook_AddinUninstall()
     On Error Resume Next
     Dim bar As CommandBarControl
     For Each bar In Application.CommandBars("Worksheet Menu Bar").Controls
-        If bar.Caption = "MemoryKnotes" Then bar.Delete
+        If bar.Caption = "MemoryKnots" Then bar.Delete
     Next
 End Sub
 

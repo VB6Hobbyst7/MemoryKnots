@@ -47,16 +47,16 @@ Sub AddCommandbar()
     'Delete any existing menu item that may have been left.
     Dim bar As CommandBarControl
     For Each bar In Application.CommandBars("Worksheet Menu Bar").Controls
-        If bar.Caption = "MemoryKnotes" Then bar.Delete
+        If bar.Caption = "MemoryKnots" Then bar.Delete
         'Debug.Print bar.Caption
     Next
 
-    '    Application.CommandBars("Worksheet Menu Bar").Controls("MemoryKnotes").Delete
+    '    Application.CommandBars("Worksheet Menu Bar").Controls("MemoryKnots").Delete
     
     'Add the new menu item and set a CommandBarButton variable to it
     Set cControl = Application.CommandBars("Worksheet Menu Bar").Controls.Add
     With cControl
-        .Caption = "MemoryKnotes"
+        .Caption = "MemoryKnots"
         .Style = msoButtonIconAndCaption
         .FaceId = 1838
         .OnAction = "Simple_Notes"               'Macro stored in a Standard Module
@@ -248,7 +248,7 @@ Function PathGet()
         SpecialPath = SpecialPath & "\"
     End If
     
-    PathGet = SpecialPath & "MemoryKnotes\"
+    PathGet = SpecialPath & "MemoryKnots\"
     '    Debug.Print PathGet
 End Function
 

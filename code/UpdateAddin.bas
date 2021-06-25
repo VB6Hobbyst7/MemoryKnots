@@ -13,15 +13,15 @@ Sub ExportNotes()
     If strPath = "" Then Exit Sub
     
     On Error Resume Next
-    '    Kill strPath & "MemoryKnotes.xlam"
-    fso.CopyFile Workbooks("MemoryKnotes.xlam").FullName, strPath
+    '    Kill strPath & "MemoryKnots.xlam"
+    fso.CopyFile Workbooks("MemoryKnots.xlam").FullName, strPath
     
-    Workbooks("MemoryKnotes.xlam").Sheets.Copy
+    Workbooks("MemoryKnots.xlam").Sheets.Copy
 
-    'Workbooks("MemoryKnotes.xlam").Sheets(Array("SETTINGS", "> NOTES", "> RESOLVED")).Copy   'or .delete
+    'Workbooks("MemoryKnots.xlam").Sheets(Array("SETTINGS", "> NOTES", "> RESOLVED")).Copy   'or .delete
     
     ActiveWorkbook.Sheets("SETTINGS").Delete
-    ActiveWorkbook.SaveAs Filename:=strPath & "MemoryKnotes.xlsx", _
+    ActiveWorkbook.SaveAs Filename:=strPath & "MemoryKnots.xlsx", _
                           FileFormat:=xlOpenXMLWorkbook, CreateBackup:=False
     ActiveWorkbook.Saved = True
     ActiveWorkbook.Close
@@ -61,7 +61,7 @@ Sub ImportNotes()
         '        strADMIN = InputBox("Non ADMIN ignore this")
         '        If UCase(strADMIN) = "FREEZE" Then
         '            KeepLoading = True
-        '            '        Workbooks("MemoryKnotes").Sheets("> NOTES").Cells(2, 2).EntireRow.Delete
+        '            '        Workbooks("MemoryKnots").Sheets("> NOTES").Cells(2, 2).EntireRow.Delete
         '            Exit Sub
         '        End If
       
@@ -71,18 +71,18 @@ Sub ImportNotes()
     End If
 
     Dim AddinWorkbook As Workbook
-    Set AddinWorkbook = Workbooks("MemoryKnotes.xlam")
+    Set AddinWorkbook = Workbooks("MemoryKnots.xlam")
 
 
     Dim ImportWorkbook As Workbook
-    If IsWorkBookOpen("MemoryKnotes.xlsx") Then
-        Set ImportWorkbook = Workbooks("MemoryKnotes.xlsx")
+    If IsWorkBookOpen("MemoryKnots.xlsx") Then
+        Set ImportWorkbook = Workbooks("MemoryKnots.xlsx")
     Else
-        If Dir(PathGet & "MemoryKnotes.xlsx") > Len(PathGet) Then
-            Set ImportWorkbook = Workbooks.Open(PathGet & "MemoryKnotes.xlsx")
+        If Dir(PathGet & "MemoryKnots.xlsx") > Len(PathGet) Then
+            Set ImportWorkbook = Workbooks.Open(PathGet & "MemoryKnots.xlsx")
         Else
-            CreateObject("WScript.Shell").PopUp "MemoryKnotes.xlsx not found. Use EXPORT first.", 1
-            '            MsgBox "MemoryKnotes.xlsx not found. Use EXPORT first."
+            CreateObject("WScript.Shell").PopUp "MemoryKnots.xlsx not found. Use EXPORT first.", 1
+            '            MsgBox "MemoryKnots.xlsx not found. Use EXPORT first."
             GoTo cleanup
         End If
     End If
@@ -158,7 +158,7 @@ Function GetFileToImport(Optional fileType As String, Optional multiSelect As Bo
     If strErrMsg = vbNullString Then
         ' set title of dialog box
         With Application.FileDialog(msoFileDialogFilePicker)
-            .InitialFileName = "MemoryKnotes.xlsx"     'Environ("USERprofile") & "\Desktop\"  'ThisWorkbook.Path 'Left(ThisWorkbook.Path, InStrRev(ThisWorkbook.Path, "\"))
+            .InitialFileName = "MemoryKnots.xlsx"     'Environ("USERprofile") & "\Desktop\"  'ThisWorkbook.Path 'Left(ThisWorkbook.Path, InStrRev(ThisWorkbook.Path, "\"))
             .AllowMultiSelect = multiSelect
             .Filters.Clear
             If blArray Then .Filters.Add "File type", "*." & fileType

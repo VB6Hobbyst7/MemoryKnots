@@ -16,8 +16,8 @@ Public WithEvents WorksheetSelectionChangeCheck As Excel.Worksheet
 Attribute WorksheetSelectionChangeCheck.VB_VarHelpID = -1
 
 Dim FolderToZip As String
-Dim MemoryKnotesWB As Workbook
-Dim MemoryKnotesWS As Worksheet
+Dim MemoryKnotsWB As Workbook
+Dim MemoryKnotsWS As Worksheet
 Dim cell As Range
 Dim i As Long
 Dim str As String
@@ -29,9 +29,9 @@ Dim RestoreTo As Worksheet
 Private Sub AddBook_MouseDown(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
     str = InputBox("New NoteBook name")
     If str = "" Then Exit Sub
-    Set MemoryKnotesWS = MemoryKnotesWB.Sheets.Add(After:=MemoryKnotesWB.Sheets(MemoryKnotesWB.Sheets.count))
+    Set MemoryKnotsWS = MemoryKnotsWB.Sheets.Add(After:=MemoryKnotsWB.Sheets(MemoryKnotsWB.Sheets.count))
     noteBOOKS.AddItem (">" & UCase(str))
-    With MemoryKnotesWS
+    With MemoryKnotsWS
         .Name = ">" & UCase(str)
         .[A1] = "DATE"
         .[B1] = "NOTES"
@@ -81,7 +81,7 @@ Private Sub CloseNoteBook_MouseDown(ByVal Button As Integer, ByVal Shift As Inte
         Exit Sub
     End If
     
-    MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Visible = False
+    MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Visible = False
     If Not tmpWS Is Nothing Then
         tmpWS.Activate
     End If
@@ -243,8 +243,8 @@ Sub ExportAsImage()
             Call ExportRangeAsImage(ActiveSheet, JPGcell, JPGfolder, JPGcell.Value, ImageExtension)
             Application.Wait (Now + TimeValue("0:00:01"))
 
-            Set MemoryKnotesWS = MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
-            Set cell = MemoryKnotesWS.Cells(Rows.count, 1).End(xlUp).Offset(1, 0)
+            Set MemoryKnotsWS = MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
+            Set cell = MemoryKnotsWS.Cells(Rows.count, 1).End(xlUp).Offset(1, 0)
             cell = Now()
             cell.Offset(0, 1) = JPGcell.Value & "." & ImageExtension
             noteLIST.AddItem JPGcell.Value & "." & ImageExtension
@@ -260,8 +260,8 @@ Sub ExportAsImage()
             Call ExportRangeAsImage(ActiveSheet, Selection.Areas(i), JPGfolder, result, ImageExtension)
             Application.Wait (Now + TimeValue("0:00:01"))
 
-            Set MemoryKnotesWS = MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
-            Set cell = MemoryKnotesWS.Cells(Rows.count, 1).End(xlUp).Offset(1, 0)
+            Set MemoryKnotsWS = MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
+            Set cell = MemoryKnotsWS.Cells(Rows.count, 1).End(xlUp).Offset(1, 0)
             cell = Now()
             cell.Offset(0, 1) = result & "." & ImageExtension
             noteLIST.AddItem result & "." & ImageExtension
@@ -509,7 +509,7 @@ Private Sub cmdMail_MouseDown(ByVal Button As Integer, ByVal Shift As Integer, B
             .To = ""
             .CC = ""
             .BCC = ""
-            .Subject = "MemoryKnotes"
+            .Subject = "MemoryKnots"
             .Body = msg
             If AttachPath <> "" Then
                 .Attachments.Add (MailAttachments)
@@ -584,7 +584,7 @@ End Function
 
 Private Sub cmdMoveNote_MouseDown(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
     If Listbox_Selected(noteLIST, 1) = 0 Then Exit Sub
-    '    Set cell = MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Columns("B:B").Find( _
+    '    Set cell = MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Columns("B:B").Find( _
     '        What:=noteLIST.List(noteLIST.ListIndex), _
     '        LookIn:=xlFormulas, _
     '        LookAt:=xlWhole, _
@@ -608,7 +608,7 @@ Private Sub cmdMoveOK_Click()
 
     'If noteSELECT.ListIndex <> -1 Then
     '    strTMP = noteSELECT.List(noteSELECT.ListIndex)
-    '    cell.EntireRow.Copy MemoryKnotesWB.Sheets(strTMP).Range("A" & Rows.Count).End(xlUp).Offset(1, 0)
+    '    cell.EntireRow.Copy MemoryKnotsWB.Sheets(strTMP).Range("A" & Rows.Count).End(xlUp).Offset(1, 0)
     '    cell.EntireRow.Delete
     '    noteBOX.Value = ""
     '    noteLIST.RemoveItem (noteLIST.ListIndex)
@@ -643,7 +643,7 @@ Private Sub cmdMoveOK_Click()
             
         For i = UBound(moveWhat) To LBound(moveWhat) Step -1
         
-        Set cell = MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Columns("B:B").Find( _
+        Set cell = MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Columns("B:B").Find( _
         What:=noteLIST.List(moveWhat(i)), _
         LookIn:=xlFormulas, _
         LookAt:=xlWhole, _
@@ -652,7 +652,7 @@ Private Sub cmdMoveOK_Click()
         MatchCase:=True, _
         SearchFormat:=False)
             
-            cell.EntireRow.Copy MemoryKnotesWB.Sheets(moveTo).Range("A" & Rows.count).End(xlUp).Offset(1, 0)
+            cell.EntireRow.Copy MemoryKnotsWB.Sheets(moveTo).Range("A" & Rows.count).End(xlUp).Offset(1, 0)
             cell.EntireRow.Delete
     
         Next i
@@ -790,8 +790,8 @@ Sub VoiceNoteSave()
     
     Name PathGet & "tmp.wav" As PathGet & result
 
-    Set MemoryKnotesWS = MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
-    Set cell = MemoryKnotesWS.Cells(Rows.count, 1).End(xlUp).Offset(1, 0)
+    Set MemoryKnotsWS = MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
+    Set cell = MemoryKnotsWS.Cells(Rows.count, 1).End(xlUp).Offset(1, 0)
     cell = Now()
     cell.Offset(0, 1) = result
     noteLIST.AddItem result
@@ -848,8 +848,8 @@ Sub SaveTextToWav(NormalOrMini As Long)
     Dim i As Integer
     Dim j As Variant
         
-    Set MemoryKnotesWS = MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
-    Set cell = MemoryKnotesWS.Cells(Rows.count, 1).End(xlUp).Offset(1, 0)
+    Set MemoryKnotsWS = MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
+    Set cell = MemoryKnotsWS.Cells(Rows.count, 1).End(xlUp).Offset(1, 0)
     cell = Now()
     cell.Offset(0, 1) = sFN
     noteLIST.AddItem sFN
@@ -881,7 +881,7 @@ Private Sub DeleteBook_MouseDown(ByVal Button As Integer, ByVal Shift As Integer
         Exit Sub
     End If
     Application.DisplayAlerts = False
-    MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Delete
+    MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Delete
     noteBOOKS.RemoveItem (noteBOOKS.ListIndex)
     Application.DisplayAlerts = True
 End Sub
@@ -891,7 +891,7 @@ Private Sub DeleteNote_MouseDown(ByVal Button As Integer, ByVal Shift As Integer
     '        MsgBox "Note list empty or none selected"
     '        Exit Sub
     '    End If
-    '    Set cell = MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Columns("B:B").Find( _
+    '    Set cell = MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Columns("B:B").Find( _
     '        What:=noteLIST.List(noteLIST.ListIndex), _
     '        LookIn:=xlFormulas, _
     '        LookAt:=xlWhole, _
@@ -915,7 +915,7 @@ Private Sub DeleteNote_MouseDown(ByVal Button As Integer, ByVal Shift As Integer
     'move backwards when deleting
     For i = UBound(deleteWhat) To LBound(deleteWhat) Step -1
     
-        Set cell = MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Columns("B:B").Find( _
+        Set cell = MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Columns("B:B").Find( _
         What:=noteLIST.List(deleteWhat(i)), _
         LookIn:=xlFormulas, _
         LookAt:=xlWhole, _
@@ -1028,7 +1028,7 @@ Private Sub cmdResolved_MouseDown(ByVal Button As Integer, ByVal Shift As Intege
             
     For i = LBound(resolveWhat) To UBound(resolveWhat)
     
-        Set cell = MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Columns("B:B").Find( _
+        Set cell = MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Columns("B:B").Find( _
         What:=noteLIST.List(resolveWhat(i)), _
         LookIn:=xlFormulas, _
         LookAt:=xlWhole, _
@@ -1037,7 +1037,7 @@ Private Sub cmdResolved_MouseDown(ByVal Button As Integer, ByVal Shift As Intege
         MatchCase:=False, _
         SearchFormat:=False)
             
-        cell.EntireRow.Copy MemoryKnotesWB.Sheets("> RESOLVED").Range("A" & Rows.count).End(xlUp).Offset(1, 0)
+        cell.EntireRow.Copy MemoryKnotsWB.Sheets("> RESOLVED").Range("A" & Rows.count).End(xlUp).Offset(1, 0)
         cell.EntireRow.Delete
     
     Next i
@@ -1056,7 +1056,7 @@ End Sub
 
 Private Sub noteBOOKS_Change()
     On Error GoTo eh
-    Set MemoryKnotesWS = MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
+    Set MemoryKnotsWS = MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
     noteLIST.Clear
     Call LoadNoteList
 eh:
@@ -1078,14 +1078,14 @@ Private Sub noteBOOKS_DblClick(ByVal Cancel As MSForms.ReturnBoolean)
         MsgBox "Name taken"
         Exit Sub
     End If
-    Set MemoryKnotesWS = MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
+    Set MemoryKnotsWS = MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
     
-    With MemoryKnotesWS
+    With MemoryKnotsWS
         .Name = ">" & UCase(result)
     End With
     
     noteBOOKS.List(noteBOOKS.ListIndex) = ">" & UCase(result)
-    Set MemoryKnotesWS = Nothing
+    Set MemoryKnotsWS = Nothing
 End Sub
 
 Private Sub noteBOX_Exit(ByVal Cancel As MSForms.ReturnBoolean)
@@ -1149,8 +1149,8 @@ If noteLIST.ListCount = 0 Then Exit Sub
             Name PathGet & noteLIST.List(noteLIST.ListIndex) As _
                                                              PathGet & str & ".wav"
         
-            Set MemoryKnotesWS = MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
-            Set cell = MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Columns("B:B").Find( _
+            Set MemoryKnotsWS = MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
+            Set cell = MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Columns("B:B").Find( _
         What:=noteLIST.List(noteLIST.ListIndex), _
         LookIn:=xlFormulas, _
         LookAt:=xlWhole, _
@@ -1176,8 +1176,8 @@ If noteLIST.ListCount = 0 Then Exit Sub
             Name PathGet & noteLIST.List(noteLIST.ListIndex) As _
                                                              PathGet & str & Right(noteLIST.List(noteLIST.ListIndex), 3)
         
-            Set MemoryKnotesWS = MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
-            Set cell = MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Columns("B:B").Find( _
+            Set MemoryKnotsWS = MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
+            Set cell = MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Columns("B:B").Find( _
         What:=noteLIST.List(noteLIST.ListIndex), _
         LookIn:=xlFormulas, _
         LookAt:=xlWhole, _
@@ -1205,7 +1205,7 @@ Private Sub OpenNoteBook_MouseDown(ByVal Button As Integer, ByVal Shift As Integ
     End If
 
     Set tmpWS = ActiveSheet
-    With MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
+    With MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
         .Visible = True
         .Activate
     End With
@@ -1233,15 +1233,15 @@ Sub NoteSave()
         msg = noteBOX.Text
     End If
     
-    Set MemoryKnotesWS = MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
+    Set MemoryKnotsWS = MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
     
     If Listbox_Selected(noteLIST, 1) = 0 Then
-        Set cell = MemoryKnotesWS.Cells(Rows.count, 1).End(xlUp).Offset(1, 0)
+        Set cell = MemoryKnotsWS.Cells(Rows.count, 1).End(xlUp).Offset(1, 0)
         cell = Now()
         cell.Offset(0, 1) = msg
         noteLIST.AddItem (msg)
     Else
-        Set cell = MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Columns("B:B").Find( _
+        Set cell = MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Columns("B:B").Find( _
         What:=noteLIST.List(noteLIST.ListIndex), _
         LookIn:=xlFormulas, _
         LookAt:=xlWhole, _
@@ -1277,15 +1277,15 @@ Sub NoteSaveMini()
         msg = noteBOXmini.Text
     End If
     
-    Set MemoryKnotesWS = MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
+    Set MemoryKnotsWS = MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex))
     
     If Listbox_Selected(noteLIST, 1) = 0 Then
-        Set cell = MemoryKnotesWS.Cells(Rows.count, 1).End(xlUp).Offset(1, 0)
+        Set cell = MemoryKnotsWS.Cells(Rows.count, 1).End(xlUp).Offset(1, 0)
         cell = Now()
         cell.Offset(0, 1) = msg
         noteLIST.AddItem (msg)
     Else
-        Set cell = MemoryKnotesWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Columns("B:B").Find( _
+        Set cell = MemoryKnotsWB.Sheets(noteBOOKS.List(noteBOOKS.ListIndex)).Columns("B:B").Find( _
         What:=noteLIST.List(noteLIST.ListIndex), _
         LookIn:=xlFormulas, _
         LookAt:=xlWhole, _
@@ -1418,9 +1418,9 @@ Private Sub UserForm_Initialize()
     Me.noteBOXmini.Font.Size = 8                 'ThisWorkbook.Sheets("SETTINGS").Range("noteBoxFontSize").Value
     
 
-    Set MemoryKnotesWB = Workbooks(ThisWorkbook.Name)
+    Set MemoryKnotsWB = Workbooks(ThisWorkbook.Name)
 
-    '    Set MemoryKnotesWS = MemoryKnotesWB.Sheets(1)
+    '    Set MemoryKnotsWS = MemoryKnotsWB.Sheets(1)
         
     Call LoadNoteBooks
 
@@ -1470,16 +1470,16 @@ End Sub
 Private Sub LoadNoteList()
     noteLIST.Clear
     Dim i As Long
-    For i = 2 To MemoryKnotesWS.Cells(Rows.count, 1).End(xlUp).Row
-        noteLIST.AddItem MemoryKnotesWS.Cells(i, 2)
+    For i = 2 To MemoryKnotsWS.Cells(Rows.count, 1).End(xlUp).Row
+        noteLIST.AddItem MemoryKnotsWS.Cells(i, 2)
     Next
 End Sub
 
 Private Sub LoadNoteBooks()
     noteBOOKS.Clear
-    For i = 1 To MemoryKnotesWB.Sheets.count
-        If MemoryKnotesWB.Sheets(i).Name Like ">*" Then
-            noteBOOKS.AddItem MemoryKnotesWB.Sheets(i).Name
+    For i = 1 To MemoryKnotsWB.Sheets.count
+        If MemoryKnotsWB.Sheets(i).Name Like ">*" Then
+            noteBOOKS.AddItem MemoryKnotsWB.Sheets(i).Name
         End If
     Next
 End Sub
@@ -1490,7 +1490,7 @@ Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)
     SaveSetting "My Settings Folder", Me.Name, "Left Position", Me.Left
     SaveSetting "My Settings Folder", Me.Name, "Top Position", Me.Top
 
-    With Workbooks("MemoryKnotes.xlam")
+    With Workbooks("MemoryKnots.xlam")
         If .ReadOnly Then .ChangeFileAccess Mode:=xlReadWrite
         .Save
     End With
